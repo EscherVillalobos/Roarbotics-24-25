@@ -63,15 +63,19 @@ private DcMotor leftBack;
 //    public static int drivingHeight = 1411;
 //    public static int startingHeight = 0;
 //    public static int floorHeight = 1604;
-    public static double outspeed = -1;
+    public static double outspeed = 0.3;
+    public static double inspeed = 1;
     public static int startingHeight = 0;
     public static int scoringHeight = 0;
     public static int maxHeight = 0;
     public static int pickupHeight = 0;
-    public static double slidesOut = 0;
-    public static double slidesIn = 0;
+    public static double slidesOut = 0.3;
+    public static double slidesIn = 0.55;
     public static double bucketIntake = 0;
     public static double bucketOut = 0;
+    public static double inHeight = 0.03;
+    public static double outHeight = 0.65;
+    public static double midHeight = 0.25;
 
 
     @Override
@@ -138,27 +142,27 @@ private DcMotor leftBack;
             rightBack.setPower(backRightPower);
 
             if (gamepad1.a || gamepad2.a){
-                speed = 1;
 
+                intakeServo.setPower(inspeed);
             }
             if (gamepad1.b || gamepad2.b){
 
-                speed = outspeed;
+                intakeServo.setPower(outspeed);
             }
-            else {
-               speed = 0;
-            }
+//            else {
+//               speed = 0;
+//            }
             // Outake position
             if (gamepad2.y){
-                armHeight = 1;
+                armHeight = outHeight;
             }
             //Intake Position
             if (gamepad2.x){
-                armHeight = -1;
+                armHeight = inHeight;
             }
             // Middle position
             if (gamepad2.right_stick_button){
-                armHeight = 0;
+                armHeight = midHeight;
             }
 
             if (gamepad2.dpad_up){
@@ -196,7 +200,7 @@ private DcMotor leftBack;
 
 
 
-            intakeServo.setPower(speed);
+          intakeServo.setPower(speed);
           armServo.setPosition(armHeight);
           slideServo.setPosition(slidePosition);
           bucketServo.setPosition(bucketPosition);
